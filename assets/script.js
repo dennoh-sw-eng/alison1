@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const SLUG_TO_CERTIFICATE_ID = {
-  '3f9b2c7d1e4a': '62731-94516-71892': '627319451671892'
+  '3f9b2c7d1e4a': '62731-94516-71892': '62731-94516-71892'
 };
 
 function autoVerifyFromPath(){
@@ -52,7 +52,7 @@ const CERTIFICATE_RECORDS = {
     issued: '01 August 2026',
     status: 'Active',
     issuer: 'ITSM Training Alliance',
-    id: 'Alison'
+    id: '62731-94516-71892'
   },
   '627319451671892': {
     name: 'Francis Dennis Wakaba Ndirangu',
