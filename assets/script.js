@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const SLUG_TO_CERTIFICATE_ID = {
-  '3f9b2c7d1e4a': '62731-94516-71892'
+  '3f9b2c7d1e4a': '62731-94516-71892': '627319451671892'
 };
 
 function autoVerifyFromPath(){
@@ -52,10 +52,26 @@ const CERTIFICATE_RECORDS = {
     issued: '01 August 2026',
     status: 'Active',
     issuer: 'ITSM Training Alliance',
+    id: 'Alison'
+  },
+  '627319451671892': {
+    name: 'Francis Dennis Wakaba Ndirangu',
+    course: 'Foundations of ITIL 4 for Service Management',
+    issued: '01 August 2026',
+    status: 'Active',
+    issuer: 'Alison',
+    id: '62731-94516-71892'
+  },
+    '62731 94516 71892': {
+    name: 'Francis Dennis Wakaba Ndirangu',
+    course: 'Foundations of ITIL 4 for Service Management',
+    issued: '01 August 2026',
+    status: 'Active',
+    issuer: 'Alison',
     id: '62731-94516-71892'
   },
   'CV-2024-88213': {
-    name: 'Amara Odhiambo',
+    name: 'John Doe',
     course: 'Diploma in Project Management',
     issued: '14 March 2024',
     status: 'Active',
@@ -63,7 +79,7 @@ const CERTIFICATE_RECORDS = {
     id: 'CV-2024-88213'
   },
   'CV-2023-40217': {
-    name: 'Daniel Kip Cheruiyot',
+    name: 'Cheng Fagao',
     course: 'Certificate in Digital Marketing',
     issued: '02 September 2023',
     status: 'Active',
