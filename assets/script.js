@@ -157,10 +157,110 @@ function initContactForm(){
   const form = document.querySelector('#contact-form');
   if (!form) return;
   const status = document.querySelector('#form-status');
+
+  const fields = {
+    name: {
+      el: form.querySelector('#name'),
+      validate: (v) => {
+        v = v.trim();
+        if (!v) return 'Enter your full name.';
+        if (v.length < 2) return 'Name must be at least 2 characters.';
+        return '';
+      }
+    },
+    email: {
+      el: form.querySelector('#email'),
+      validate: (v) => {
+        v = v.trim();
+        if (!v) return 'Enter your email address.';
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!re.test(v)) return 'Enter a valid email address.';
+        return '';
+      }
+    },
+    reason: {
+      el: form.querySelector('#reason'),
+      validate: (v) => {
+        if (!v) return 'Select a reason for contact.';
+        return '';
+      }
+    },
+    message: {
+      el: form.querySelector('#message'),
+      validate: (v) => {
+        v = v.trim();
+        if (!v) return 'Enter a message.';
+        if (v.length < 10) return 'Message should be at least 10 characters.';
+        return '';
+      }
+    }
+  };
+
+  const setError = (key, msg) => {
+    const field = fields[key];
+    if (!field || !field.el) return;
+    const wrapper = field.el.closest('.form-field');
+    const errorEl = document.querySelector(`#${key}-error`);
+    if (msg){
+      if (wrapper) wrapper.classList.add('has-error');
+      field.el.setAttribute('aria-invalid', 'true');
+      if (errorEl) errorEl.textContent = msg;
+    } else {
+      if (wrapper) wrapper.classList.remove('has-error');
+      field.el.removeAttribute('aria-invalid');
+      if (errorEl) errorEl.textContent = '';
+    }
+  };
+
+  const validateField = (key) => {
+    const field = fields[key];
+    if (!field || !field.el) return true;
+    const msg = field.validate(field.el.value);
+    setError(key, msg);
+    return !msg;
+  };
+
+  Object.keys(fields).forEach(key => {
+    const el = fields[key].el;
+    if (!el) return;
+    el.addEventListener('blur', () => validateField(key));
+    el.addEventListener('input', () => {
+      const wrapper = el.closest('.form-field');
+      if (wrapper && wrapper.classList.contains('has-error')) {
+        validateField(key);
+      }
+    });
+    if (el.tagName === 'SELECT'){
+      el.addEventListener('change', () => validateField(key));
+    }
+  });
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    let allValid = true;
+    let firstInvalidEl = null;
+
+    Object.keys(fields).forEach(key => {
+      const valid = validateField(key);
+      if (!valid){
+        allValid = false;
+        if (!firstInvalidEl) firstInvalidEl = fields[key].el;
+      }
+    });
+
+    status.classList.remove('show', 'ok', 'error');
+
+    if (!allValid){
+      status.textContent = 'Please fix the highlighted fields before sending.';
+      status.classList.add('show', 'error');
+      if (firstInvalidEl) firstInvalidEl.focus();
+      return;
+    }
+
     status.textContent = "Message sent. We'll get back to you within 1 to 2 business days.";
     status.classList.add('show', 'ok');
     form.reset();
+    Object.keys(fields).forEach(key => setError(key, ''));
   });
 }
