@@ -179,11 +179,7 @@ nav.main-nav a:hover, nav.main-nav a[aria-current="page"]{
   align-items: center;
   gap: 10px;
 }
-.eyebrow::before{
-  content:'';
-  width: 22px; height: 1px;
-  background: var(--foil);
-}
+
 .hero h1{
   color: #fff;
   font-size: clamp(2.1rem, 4vw, 3.2rem);
