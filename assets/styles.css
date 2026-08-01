@@ -581,6 +581,16 @@ section{ padding: 84px 0; }
   border-color: var(--foil);
   outline: none;
 }
+.form-field.field-error input, .form-field.field-error textarea, .form-field.field-error select{
+  border-color: var(--invalid);
+}
+.form-field-msg{
+  display: none;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  color: var(--invalid);
+}
+.form-field.field-error .form-field-msg{ display: block; }
 .contact-info-card{
   background: var(--ink);
   color: var(--mist);
@@ -604,6 +614,7 @@ section{ padding: 84px 0; }
 }
 .form-status.show{ display: block; }
 .form-status.ok{ background: var(--verified-dim); color: var(--verified); }
+.form-status.error{ background: var(--invalid-dim); color: var(--invalid); }
 
 footer.site-footer{
   background: var(--ink);
