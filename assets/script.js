@@ -53,7 +53,7 @@ const CERTIFICATE_RECORDS = {
   '62731-94516-71892': {
     name: 'Francis Dennis Wakaba Ndirangu',
     course: 'Foundations of ITIL 4 for Service Management',
-    issued: '13 March 2026',
+    issued: '03 March 2026',
     status: 'Active',
     issuer: 'Alison',
     id: '62731-94516-71892'
@@ -173,10 +173,40 @@ function initContactForm(){
   const form = document.querySelector('#contact-form');
   if (!form) return;
   const status = document.querySelector('#form-status');
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  form.querySelectorAll('.form-field[data-field]').forEach(field => {
+    const control = field.querySelector('input, textarea, select');
+    control.addEventListener('input', () => field.classList.remove('field-error'));
+    control.addEventListener('change', () => field.classList.remove('field-error'));
+  });
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    let firstInvalid = null;
+    form.querySelectorAll('.form-field[data-field]').forEach(field => {
+      const control = field.querySelector('input, textarea, select');
+      const value = control.value.trim();
+      const isEmail = control.type === 'email';
+      const isValid = value !== '' && (!isEmail || emailPattern.test(value));
+
+      field.classList.toggle('field-error', !isValid);
+      if (!isValid && !firstInvalid) firstInvalid = control;
+    });
+
+    if (firstInvalid){
+      status.textContent = 'Please fill in all fields correctly before sending.';
+      status.classList.remove('ok');
+      status.classList.add('show', 'error');
+      firstInvalid.focus();
+      return;
+    }
+
+    status.classList.remove('error');
     status.textContent = "Message sent. We'll get back to you within 1 to 2 business days.";
     status.classList.add('show', 'ok');
     form.reset();
+    form.querySelectorAll('.form-field.field-error').forEach(field => field.classList.remove('field-error'));
   });
 }
