@@ -8,31 +8,6 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/styles.css">
-<style>
-  .form-field .field-error {
-    display: block;
-    min-height: 1.15em;
-    margin-top: 6px;
-    font-size: 0.82rem;
-    line-height: 1.3;
-    color: #B3261E;
-  }
-  .form-field.has-error input,
-  .form-field.has-error select,
-  .form-field.has-error textarea {
-    border-color: #B3261E !important;
-    box-shadow: 0 0 0 1px rgba(179, 38, 30, 0.22);
-  }
-  .form-field.has-error label {
-    color: #B3261E;
-  }
-  .form-status {
-    font-size: 0.9rem;
-    margin-top: 12px;
-  }
-  .form-status.error { color: #B3261E; }
-  .form-status.ok { color: #2E7D46; }
-</style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
@@ -77,31 +52,31 @@
     <div class="wrap contact-grid">
       <div>
         <form id="contact-form" novalidate>
-          <div class="form-field">
+          <div class="form-field" data-field="name">
             <label for="name">Full name</label>
-            <input type="text" id="name" name="name" required aria-describedby="name-error">
-            <span class="field-error" id="name-error"></span>
+            <input type="text" id="name" name="name" required>
+            <span class="form-field-msg">Please enter your full name.</span>
           </div>
-          <div class="form-field">
+          <div class="form-field" data-field="email">
             <label for="email">Email address</label>
-            <input type="email" id="email" name="email" required aria-describedby="email-error">
-            <span class="field-error" id="email-error"></span>
+            <input type="email" id="email" name="email" required>
+            <span class="form-field-msg">Please enter a valid email address.</span>
           </div>
-          <div class="form-field">
+          <div class="form-field" data-field="reason">
             <label for="reason">Reason for contact</label>
-            <select id="reason" name="reason" required aria-describedby="reason-error">
-              <option value="" disabled selected>Select a reason&hellip;</option>
+            <select id="reason" name="reason" required>
+              <option value="">Select a reason</option>
               <option>Question about a verification result</option>
               <option>Report a possible error</option>
               <option>Partnership or integration inquiry</option>
               <option>Something else</option>
             </select>
-            <span class="field-error" id="reason-error"></span>
+            <span class="form-field-msg">Please select a reason for contact.</span>
           </div>
-          <div class="form-field">
+          <div class="form-field" data-field="message">
             <label for="message">Message</label>
-            <textarea id="message" name="message" required aria-describedby="message-error"></textarea>
-            <span class="field-error" id="message-error"></span>
+            <textarea id="message" name="message" required></textarea>
+            <span class="form-field-msg">Please enter a message.</span>
           </div>
           <button type="submit" class="btn btn-primary">Send message</button>
           <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
