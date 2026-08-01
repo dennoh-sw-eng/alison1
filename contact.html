@@ -30,8 +30,8 @@
     font-size: 0.9rem;
     margin-top: 12px;
   }
-  .form-status.is-error { color: #B3261E; }
-  .form-status.is-success { color: #2E7D46; }
+  .form-status.error { color: #B3261E; }
+  .form-status.ok { color: #2E7D46; }
 </style>
 </head>
 <body>
@@ -167,121 +167,5 @@
 </footer>
 
 <script src="assets/script.js"></script>
-<script>
-(function () {
-  var form = document.getElementById('contact-form');
-  if (!form) return;
-
-  var status = document.getElementById('form-status');
-
-  var fields = {
-    name: {
-      el: document.getElementById('name'),
-      validate: function (v) {
-        v = v.trim();
-        if (!v) return 'Enter your full name.';
-        if (v.length < 2) return 'Name must be at least 2 characters.';
-        return '';
-      }
-    },
-    email: {
-      el: document.getElementById('email'),
-      validate: function (v) {
-        v = v.trim();
-        if (!v) return 'Enter your email address.';
-        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!re.test(v)) return 'Enter a valid email address.';
-        return '';
-      }
-    },
-    reason: {
-      el: document.getElementById('reason'),
-      validate: function (v) {
-        if (!v) return 'Select a reason for contact.';
-        return '';
-      }
-    },
-    message: {
-      el: document.getElementById('message'),
-      validate: function (v) {
-        v = v.trim();
-        if (!v) return 'Enter a message.';
-        if (v.length < 10) return 'Message should be at least 10 characters.';
-        return '';
-      }
-    }
-  };
-
-  function setError(key, msg) {
-    var field = fields[key];
-    var wrapper = field.el.closest('.form-field');
-    var errorEl = document.getElementById(key + '-error');
-    if (msg) {
-      wrapper.classList.add('has-error');
-      field.el.setAttribute('aria-invalid', 'true');
-      errorEl.textContent = msg;
-    } else {
-      wrapper.classList.remove('has-error');
-      field.el.removeAttribute('aria-invalid');
-      errorEl.textContent = '';
-    }
-  }
-
-  function validateField(key) {
-    var field = fields[key];
-    var msg = field.validate(field.el.value);
-    setError(key, msg);
-    return !msg;
-  }
-
-  Object.keys(fields).forEach(function (key) {
-    var el = fields[key].el;
-    el.addEventListener('blur', function () {
-      validateField(key);
-    });
-    el.addEventListener('input', function () {
-      if (el.closest('.form-field').classList.contains('has-error')) {
-        validateField(key);
-      }
-    });
-    if (el.tagName === 'SELECT') {
-      el.addEventListener('change', function () {
-        validateField(key);
-      });
-    }
-  });
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    var allValid = true;
-    var firstInvalidEl = null;
-
-    Object.keys(fields).forEach(function (key) {
-      var valid = validateField(key);
-      if (!valid) {
-        allValid = false;
-        if (!firstInvalidEl) firstInvalidEl = fields[key].el;
-      }
-    });
-
-    status.classList.remove('is-error', 'is-success');
-
-    if (!allValid) {
-      status.textContent = 'Please fix the highlighted fields before sending.';
-      status.classList.add('is-error');
-      if (firstInvalidEl) firstInvalidEl.focus();
-      return;
-    }
-
-    status.textContent = "Thanks \u2014 your message has been sent. We'll reply within 1\u20132 business days.";
-    status.classList.add('is-success');
-    form.reset();
-    Object.keys(fields).forEach(function (key) {
-      setError(key, '');
-    });
-  });
-})();
-</script>
 </body>
 </html>
