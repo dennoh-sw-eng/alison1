@@ -55,11 +55,11 @@ const CERTIFICATE_RECORDS = {
     id: '62731-94516-71892'
   },
   'CV-2024-88213': {
-    name: 'Amara Odhiambo',
+    name: 'John Doe',
     course: 'Diploma in Project Management',
     issued: '14 March 2024',
     status: 'Active',
-    issuer: 'Nairobi Institute of Technology',
+    issuer: 'Illinois Institute of Technology',
     id: 'CV-2024-88213'
   },
   'CV-2023-40217': {
@@ -80,11 +80,23 @@ const CERTIFICATE_RECORDS = {
   }
 };
 
+const NORMALIZED_CERTIFICATE_IDS = Object.fromEntries(
+  Object.keys(CERTIFICATE_RECORDS).map(key => [
+    key.replace(/[-\s]/g, '').toUpperCase(),
+    key
+  ])
+);
+
+function normalizeCertificateId(rawId){
+  return rawId.trim().toUpperCase().replace(/[-\s]/g, '');
+}
+
 function lookupCertificate(rawId){
-  const id = rawId.trim().toUpperCase();
+  const normalizedId = normalizeCertificateId(rawId);
+  const canonicalId = NORMALIZED_CERTIFICATE_IDS[normalizedId] || rawId.trim().toUpperCase();
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve(CERTIFICATE_RECORDS[id] || null);
+      resolve(CERTIFICATE_RECORDS[canonicalId] || null);
     }, 900);
   });
 }
