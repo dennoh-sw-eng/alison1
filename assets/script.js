@@ -53,7 +53,7 @@ const CERTIFICATE_RECORDS = {
   '62731-94516-71892': {
     name: 'Francis Dennis Wakaba Ndirangu',
     course: 'Foundations of ITIL 4 for Service Management',
-    issued: '01 August 2026',
+    issued: '13 March 2026',
     status: 'Active',
     issuer: 'Alison',
     id: '62731-94516-71892'
