@@ -157,8 +157,7 @@ function initVerification(){
             Not Found
           </span>
         </div>
-        <p>We couldn't match "<strong>${escapeHtml(value)}</strong>" to a record. Double-check the certificate ID for typos, or contact the issuing institution if you believe this is an error.</p>
-      `;
+<p>We couldn't match "<strong>${escapeHtml(value)}</strong>" to a record. Double-check the certificate ID for typos. If the ID is correct, the issuing partner may not yet be connected to Certyvault, or the certificate may not exist in their registry. Contact the issuing institution if you believe this is an error.</p>      `;
     }
   });
 }
