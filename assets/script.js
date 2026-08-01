@@ -51,7 +51,7 @@ const CERTIFICATE_RECORDS = {
     course: 'Foundations of ITIL 4 for Service Management',
     issued: '01 August 2026',
     status: 'Active',
-    issuer: 'ITSM Training Alliance',
+    issuer: 'Alison',
     id: '62731-94516-71892'
   },
   'CV-2024-88213': {
