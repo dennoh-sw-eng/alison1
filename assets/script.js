@@ -37,9 +37,13 @@ function autoVerifyFromPath(){
   const match = window.location.pathname.match(/^\/verify\/([a-zA-Z0-9]+)\/?$/);
   if (!match) return;
   const certId = SLUG_TO_CERTIFICATE_ID[match[1]];
+  if (!certId){
+    window.location.replace('/');
+    return;
+  }
   const input = document.querySelector('#cert-id');
   const form = document.querySelector('#verify-form');
-  if (certId && input && form){
+  if (input && form){
     input.value = certId;
     form.dispatchEvent(new Event('submit', { cancelable: true }));
   }
